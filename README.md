@@ -14,6 +14,8 @@ Explosion: https://www.flaticon.com/free-icon/nuclear-explosion_3325028?term=nuc
 
 Check: https://www.flaticon.com/premium-icon/checked_1709977?term=check&page=1&position=54&page=1&position=54&related_id=1709977&origin=search
 
+Mine: https://www.flaticon.com/free-icon/mine_487029?term=mine%20explosion&page=1&position=33&page=1&position=33&related_id=487029&origin=search
+
 ### Sounds
 
 ```
