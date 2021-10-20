@@ -27,15 +27,19 @@ class _PartyState extends State<Party> {
   final toolbarHeight = 64.0;
   final List<CaseElement> values = [];
   final PartyState state = PartyState();
-  final List<double> _possibleHeights = [
-    128.0,
-    96.0,
-    80.0,
-    64.0,
-    48.0,
+  final List<int> _possibleCounts = [
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28,
+    32,
+    36,
+    40,
   ];
   int _difficulty = 0;
-  late double elementHeight;
   Orientation _orientation = Orientation.portrait;
 
   @override
@@ -46,7 +50,6 @@ class _PartyState extends State<Party> {
 
   @override
   Widget build(BuildContext context) {
-    int _columns = _computeColumnCount();
     return OrientationBuilder(
       builder: (context, orientation) {
         if (orientation != _orientation) {
@@ -71,7 +74,7 @@ class _PartyState extends State<Party> {
                         Text('Score: ${state.score}'),
                         DropdownButton<int>(
                           items: List.generate(
-                            _possibleHeights.length,
+                            _possibleCounts.length,
                             (index) => DropdownMenuItem<int>(
                               child: Text(index.toString()),
                               value: index,
@@ -89,17 +92,37 @@ class _PartyState extends State<Party> {
                     ),
                   ),
                   Expanded(
-                    child: GridView.count(
-                      crossAxisCount: _columns,
-                      children: values.map((value) {
-                        return Square(
-                          element: value,
-                          width: elementHeight,
-                          height: elementHeight,
-                          onReveal: _refresh,
-                        );
-                      }).toList(),
-                    ),
+                    child: Builder(builder: (context) {
+                      int columnCount = _difficulty == 0 ? 2 : 4;
+                      return Table(
+                        border: TableBorder.all(color: Colors.black),
+                        columnWidths: const {
+                          0: FlexColumnWidth(),
+                          1: FlexColumnWidth(),
+                          2: FlexColumnWidth(),
+                          3: FlexColumnWidth(),
+                        },
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        children: List.generate(
+                          _possibleCounts[_difficulty] ~/ columnCount,
+                          (rowIndex) => TableRow(
+                            children: List.generate(
+                              columnCount,
+                              (columnIndex) => Square(
+                                width: widget.width / columnCount,
+                                height: (widget.height - toolbarHeight) /
+                                    (_possibleCounts[_difficulty] /
+                                        columnCount),
+                                element: values[
+                                    rowIndex * columnCount + columnIndex],
+                                onReveal: _refresh,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ],
               ),
@@ -159,7 +182,7 @@ class _PartyState extends State<Party> {
         });
       }
       if (win) {
-        _difficulty = min(_difficulty + 1, _possibleHeights.length - 1);
+        _difficulty = min(_difficulty + 1, _possibleCounts.length - 1);
         _reset();
       }
     });
@@ -167,9 +190,8 @@ class _PartyState extends State<Party> {
 
   void _reset() {
     setState(() {
-      elementHeight = _possibleHeights[_difficulty];
       state.reset();
-      int elementCount = _computeElementCount();
+      int elementCount = _possibleCounts[_difficulty];
       values.clear();
       // Generate 12 random values between 0 and 1
       for (var i = 0; i < elementCount; i++) {
@@ -193,19 +215,5 @@ class _PartyState extends State<Party> {
     values.where((element) => element.value == 1).forEach((element) {
       element.hide();
     });
-  }
-
-  int _computeColumnCount() {
-    double screenWidth = widget.width;
-    return (screenWidth / elementHeight).floor();
-  }
-
-  int _computeElementCount() {
-    double screenWidth = widget.width;
-    double screenHeight =
-        widget.height - toolbarHeight; // remove toolbar height
-    int rowCount = (screenHeight / elementHeight).floor();
-    int columnCount = (screenWidth / elementHeight).floor();
-    return rowCount * columnCount;
   }
 }
