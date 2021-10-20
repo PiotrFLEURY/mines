@@ -2,6 +2,7 @@ enum PartyStatus {
   playing,
   win,
   loose,
+  cheat,
 }
 
 extension PartyStatusString on PartyStatus {
@@ -10,9 +11,11 @@ extension PartyStatusString on PartyStatus {
       case PartyStatus.playing:
         return 'Playing';
       case PartyStatus.win:
-        return 'Win';
+        return 'Winner';
       case PartyStatus.loose:
-        return 'Loose';
+        return 'Looser';
+      case PartyStatus.cheat:
+        return 'Cheater';
     }
   }
 }
