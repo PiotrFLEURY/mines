@@ -1,5 +1,6 @@
 enum PartyStatus {
   playing,
+  pause,
   win,
   loose,
   cheat,
@@ -10,6 +11,8 @@ extension PartyStatusString on PartyStatus {
     switch (this) {
       case PartyStatus.playing:
         return 'Playing';
+      case PartyStatus.pause:
+        return 'Pause';
       case PartyStatus.win:
         return 'Winner';
       case PartyStatus.loose:

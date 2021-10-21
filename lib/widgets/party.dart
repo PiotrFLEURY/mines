@@ -70,17 +70,24 @@ class _PartyState extends State<Party> {
   }
 
   void _playMusic() async {
-    await musicPlayer.setAsset('assets/audio/mixkit-vertigo-597(2).mp3');
-    musicPlayer.play();
+    if (_soundEnabled) {
+      await musicPlayer.setAsset('assets/audio/mixkit-vertigo-597(2).mp3');
+      musicPlayer.play();
+    }
   }
 
   @override
   void initState() {
+    _loadPreferences();
     _reset();
     musicPlayer = AudioPlayer();
     effectPlayer = AudioPlayer();
     super.initState();
     _playMusic();
+  }
+
+  void _loadPreferences() async {
+    _soundEnabled = await Preferences.isSoundEnabled();
   }
 
   void _toggleSound() {
@@ -114,11 +121,12 @@ class _PartyState extends State<Party> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
-                          icon: const Icon(
-                            Icons.restart_alt,
-                            color: Colors.red,
-                          ),
-                          onPressed: _reset,
+                          onPressed: () {
+                            setState(() {
+                              state.status = PartyStatus.pause;
+                            });
+                          },
+                          icon: const Icon(Icons.menu),
                         ),
                         IconButton(
                           onPressed: _toggleSound,
@@ -206,7 +214,6 @@ class _PartyState extends State<Party> {
                         _reset();
                       },
                       onTryAgain: _reset,
-                      onRageQuit: closeApp,
                     ),
               hintValue <= 0
                   ? Container()
@@ -219,14 +226,6 @@ class _PartyState extends State<Party> {
         );
       },
     );
-  }
-
-  void closeApp() {
-    if (Platform.isAndroid) {
-      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-    } else {
-      exit(0);
-    }
   }
 
   void _refresh() {

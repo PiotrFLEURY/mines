@@ -7,14 +7,12 @@ class PartyMenu extends StatefulWidget {
   final PartyStatus status;
   final Function() onRestart;
   final Function() onTryAgain;
-  final Function() onRageQuit;
 
   const PartyMenu({
     Key? key,
     required this.status,
     required this.onRestart,
     required this.onTryAgain,
-    required this.onRageQuit,
   }) : super(key: key);
 
   @override
@@ -69,10 +67,12 @@ class _PartyMenuState extends State<PartyMenu> {
                       .headline2!
                       .copyWith(color: Colors.green),
                 ),
-                Image.asset(
-                  'assets/images/explosion.png',
-                  height: 256.0,
-                ),
+                if ([PartyStatus.loose, PartyStatus.cheat]
+                    .contains(widget.status))
+                  Image.asset(
+                    'assets/images/explosion.png',
+                    height: 256.0,
+                  ),
                 Text(
                   widget.status.asText(),
                   style: Theme.of(context).textTheme.headline3,
@@ -86,10 +86,6 @@ class _PartyMenuState extends State<PartyMenu> {
                     onPressed: widget.onTryAgain,
                     child: const Text('Try again'),
                   ),
-                ElevatedButton(
-                  onPressed: widget.onRageQuit,
-                  child: const Text('Rage quit'),
-                ),
               ],
             ),
           ),
