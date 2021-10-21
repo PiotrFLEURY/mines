@@ -1,13 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Preferences {
-  static Future<bool> isSoundEnabled() async {
+class Preferences extends ChangeNotifier {
+  bool _soundEnabled = true;
+
+  void loadPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('soundEnabled') ?? true;
+    _soundEnabled = prefs.getBool('soundEnabled') ?? true;
   }
 
-  static Future<void> setSoundEnabled(bool value) async {
+  get isSoundEnabled => _soundEnabled;
+
+  Future<void> setSoundEnabled(bool value) async {
+    _soundEnabled = value;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('soundEnabled', value);
+    notifyListeners();
   }
 }
