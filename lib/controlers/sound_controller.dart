@@ -20,23 +20,21 @@ class SoundController {
   }
 
   void pauseMusic() async {
-    await musicPlayer.setAsset('assets/audio/mixkit-vertigo-597(2).mp3');
     musicPlayer.pause();
   }
 
   void playClic() async {
-    await effectPlayer
-        .setAsset('assets/audio/mixkit-mouse-click-close-1113.wav');
+    await effectPlayer.setAsset('assets/audio/mouseclick.wav');
     effectPlayer.play();
   }
 
   void playMusic() async {
+    await musicPlayer.setAsset('assets/audio/idle_war.ogg');
     musicPlayer.play();
   }
 
   void playExplosion() async {
-    await explosionPlayer
-        .setAsset('assets/audio/mixkit-explosion-with-rocks-debris-1703.wav');
+    await explosionPlayer.setAsset('assets/audio/hjm-big_explosion_3.wav');
     explosionPlayer.play();
   }
 

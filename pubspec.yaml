@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   just_audio: ^0.9.13
+  just_audio_libwinmedia: any
   provider: ^6.0.1
   shared_preferences: ^2.0.8
 
@@ -74,9 +75,9 @@ flutter:
     - assets/images/question.png
     - assets/images/explosion.png
     - assets/images/mine.png
-    - assets/audio/mixkit-explosion-with-rocks-debris-1703.wav
-    - assets/audio/mixkit-mouse-click-close-1113.wav
-    - assets/audio/mixkit-vertigo-597(2).mp3
+    - assets/audio/hjm-big_explosion_3.wav
+    - assets/audio/idle_war.ogg
+    - assets/audio/mouseclick.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
