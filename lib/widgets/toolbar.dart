@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mines/providers/party_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,11 +28,15 @@ class PartyToolbar extends StatelessWidget {
             icon: const Icon(Icons.menu),
           ),
           Text(
-            'Score: ${context.watch<PartyProvider>().score}',
+            AppLocalizations.of(context)!.score(
+              context.watch<PartyProvider>().score,
+            ),
             style: Theme.of(context).textTheme.headline6,
           ),
           Text(
-            'Level: ${context.watch<PartyProvider>().difficulty + 1}',
+            AppLocalizations.of(context)!.level(
+              context.watch<PartyProvider>().difficulty + 1,
+            ),
             style: Theme.of(context).textTheme.headline6,
           ),
           if (kDebugMode)
@@ -50,7 +56,9 @@ class PartyToolbar extends StatelessWidget {
               },
             ),
           Text(
-            'Death: ${context.watch<PartyProvider>().deathCount}',
+            AppLocalizations.of(context)!.death_count(
+              context.watch<PartyProvider>().deathCount,
+            ),
             style: Theme.of(context).textTheme.headline6,
           ),
         ],

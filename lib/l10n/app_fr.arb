@@ -1,0 +1,15 @@
+{
+    "helloworld": "Bonjour le monde",
+    "app_title": "Mines",
+    "death_count": "Morts: {deathcount}",
+    "level": "Niveau: {level}",
+    "score": "Score: {score}",
+    "try_again": "Essayez encore",
+    "restart": "Recommencer",
+    "menu": "Menu",
+    "party_status_playing": "Joue",
+    "party_status_paused": "En pause",
+    "party_status_loosed": "Perdu",
+    "party_status_won": "Gagné",
+    "party_status_cheater": "Tricheur"
+}

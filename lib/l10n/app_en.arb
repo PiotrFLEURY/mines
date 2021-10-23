@@ -1,0 +1,63 @@
+{
+    "helloworld": "Hello World",
+    "@helloworld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+    "app_title": "Mines",
+    "@app_title": {
+        "description": "The title of the application"
+    },
+    "death_count": "Death: {deathcount}",
+    "@death_count": {
+        "description": "The number of deaths",
+        "placeholders": {
+            "deathcount": {}
+        }
+    },
+    "level": "Level: {level}",
+    "@level": {
+        "description": "The current level",
+        "placeholders": {
+            "level": {}
+        }
+    },
+    "score": "Score: {score}",
+    "@score": {
+        "description": "The current score",
+        "placeholders": {
+            "score": {}
+        }
+    },
+    "try_again": "Try Again",
+    "@try_again": {
+        "description": "The button to try again"
+    },
+    "restart": "Restart",
+    "@restart": {
+        "description": "The button to restart"
+    },
+    "menu": "Menu",
+    "@menu": {
+        "description": "The button to go to the menu"
+    },
+    "party_status_playing": "Playing",
+    "@party_status_playing": {
+        "description": "The status of the party when playing"
+    },
+    "party_status_paused": "Paused",
+    "@party_status_paused": {
+        "description": "The status of the party when paused"
+    },
+    "party_status_loosed": "You loosed",
+    "@party_status_loosed": {
+        "description": "The status of the party when loosed"
+    },
+    "party_status_won": "You won",
+    "@party_status_won": {
+        "description": "The status of the party when won"
+    },
+    "party_status_cheater": "Cheater",
+    "@party_status_cheater": {
+        "description": "The status of the party when cheater"
+    }
+}

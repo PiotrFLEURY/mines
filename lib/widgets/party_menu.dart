@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mines/models/party_status.dart';
 import 'package:mines/providers/party_provider.dart';
 import 'package:provider/provider.dart';
@@ -48,7 +50,7 @@ class _PartyMenuState extends State<PartyMenu> {
                         ),
                       ),
                       Text(
-                        'Menu',
+                        AppLocalizations.of(context)!.menu,
                         style: Theme.of(context)
                             .textTheme
                             .headline2!
@@ -61,17 +63,21 @@ class _PartyMenuState extends State<PartyMenu> {
                           height: 256.0,
                         ),
                       Text(
-                        widget.status.asText(),
+                        widget.status.asText(context),
                         style: Theme.of(context).textTheme.headline3,
                       ),
                       ElevatedButton(
                         onPressed: widget.onRestart,
-                        child: const Text('Restart'),
+                        child: Text(
+                          AppLocalizations.of(context)!.restart,
+                        ),
                       ),
                       if (widget.status != PartyStatus.cheat)
                         ElevatedButton(
                           onPressed: widget.onTryAgain,
-                          child: const Text('Try again'),
+                          child: Text(
+                            AppLocalizations.of(context)!.try_again,
+                          ),
                         ),
                     ],
                   ),
