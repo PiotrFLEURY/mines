@@ -9,7 +9,7 @@ class PartyState {
     this.score = 0,
   });
 
-  reset() {
+  void reset() {
     status = PartyStatus.playing;
     score = 0;
   }

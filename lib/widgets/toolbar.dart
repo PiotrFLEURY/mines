@@ -6,15 +6,11 @@ import 'package:provider/provider.dart';
 
 class PartyToolbar extends StatelessWidget {
   final double height;
-  final bool soundEnabled;
-  final Function()? onToggleSound;
 
-  const PartyToolbar(
-      {Key? key,
-      required this.height,
-      required this.onToggleSound,
-      required this.soundEnabled})
-      : super(key: key);
+  const PartyToolbar({
+    Key? key,
+    required this.height,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +25,6 @@ class PartyToolbar extends StatelessWidget {
             },
             icon: const Icon(Icons.menu),
           ),
-          IconButton(
-            onPressed: onToggleSound,
-            icon: Icon(
-              soundEnabled ? Icons.volume_up : Icons.volume_off,
-            ),
-          ),
           Text(
             'Score: ${context.watch<PartyProvider>().score}',
             style: Theme.of(context).textTheme.headline6,
@@ -48,13 +38,13 @@ class PartyToolbar extends StatelessWidget {
               items: List.generate(
                 context.read<PartyProvider>().possibleCounts.length,
                 (index) => DropdownMenuItem<int>(
-                  child: Text(index.toString()),
                   value: index,
+                  child: Text(index.toString()),
                 ),
               ),
               value: context.watch<PartyProvider>().difficulty,
               onChanged: (value) {
-                PartyProvider provider = context.read<PartyProvider>();
+                final PartyProvider provider = context.read<PartyProvider>();
                 provider.difficulty = value!;
                 provider.reset();
               },

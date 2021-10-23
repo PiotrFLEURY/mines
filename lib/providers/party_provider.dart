@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mines/models/case_element.dart';
 import 'package:mines/models/party_state.dart';
 import 'package:mines/models/party_status.dart';
 
 class PartyProvider extends ChangeNotifier {
+  Orientation orientation = Orientation.portrait;
   final PartyState state = PartyState();
   final List<CaseElement> values = [];
   final List<int> possibleCounts = [
@@ -20,6 +22,8 @@ class PartyProvider extends ChangeNotifier {
     32,
     36,
     40,
+    44,
+    48,
   ];
 
   final double hintTimer = 2000;
@@ -37,13 +41,13 @@ class PartyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  get score => state.score;
+  int get score => state.score;
 
-  get playing => state.status == PartyStatus.playing;
+  bool get playing => state.status == PartyStatus.playing;
 
-  get status => state.status;
+  PartyStatus get status => state.status;
 
-  get caseCount => possibleCounts[difficulty];
+  int get caseCount => possibleCounts[difficulty];
 
   int get columnCount => difficulty == 0 ? 2 : 4;
 
@@ -54,13 +58,13 @@ class PartyProvider extends ChangeNotifier {
         )
         .length;
 
-    bool loose =
+    final bool loose =
         values.any((element) => element.isRevealed && element.value != 0);
 
-    bool win =
+    final bool win =
         state.score == values.where((element) => element.value == 0).length;
 
-    bool cheat = state.status == PartyStatus.cheat ||
+    final bool cheat = state.status == PartyStatus.cheat ||
         values.any((element) => element.isRevealed) && hintValue > 0;
 
     if (cheat) {
@@ -84,7 +88,7 @@ class PartyProvider extends ChangeNotifier {
   void reset() {
     hintValue = hintTimer;
     state.reset();
-    int elementCount = possibleCounts[difficulty];
+    final int elementCount = possibleCounts[difficulty];
     values.clear();
     // Generate random values between 0 and 1
     for (var i = 0; i < elementCount; i++) {
@@ -100,7 +104,6 @@ class PartyProvider extends ChangeNotifier {
       if (hintValue <= 0) {
         timer.cancel();
         _hideBooms();
-        refresh();
       }
 
       notifyListeners();
@@ -109,17 +112,18 @@ class PartyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  _revealBooms() {
+  void _revealBooms() {
     values.where((element) => element.value == 1).forEach((element) {
       element.reveal();
     });
   }
 
-  _hideBooms() {
+  void _hideBooms() {
     values.where((element) => element.value == 1).forEach((element) {
       element.hide();
     });
+    refresh();
   }
 
-  get progress => max(hintValue / hintTimer, 0);
+  double get progress => max(hintValue / hintTimer, 0);
 }

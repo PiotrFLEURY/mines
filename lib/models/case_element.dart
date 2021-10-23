@@ -7,11 +7,18 @@ class CaseElement {
     this.isRevealed = false,
   });
 
-  reveal() {
+  void reveal({bool user = false}) {
     isRevealed = true;
+    if (user && value == 1) {
+      explode();
+    }
   }
 
-  hide() {
+  void hide() {
     isRevealed = false;
+  }
+
+  void explode() {
+    value = 2;
   }
 }

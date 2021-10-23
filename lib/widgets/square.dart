@@ -17,31 +17,59 @@ class Square extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: element.isRevealed
-              ? element.value == 0
-                  ? Colors.black
-                  : Colors.red
-              : Colors.grey,
-          width: 2.0,
+    return GestureDetector(
+      onTap: () {
+        if (element.isRevealed) return;
+        element.reveal(user: true);
+        onReveal();
+      },
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: element.isRevealed
+                ? element.value == 0
+                    ? Colors.black
+                    : Colors.red
+                : Colors.grey,
+            width: 2.0,
+          ),
+        ),
+        padding: const EdgeInsets.all(8.0),
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          transitionBuilder: (child, animation) => ScaleTransition(
+            scale: animation,
+            child: child,
+          ),
+          child: _content(),
         ),
       ),
-      padding: const EdgeInsets.all(8.0),
-      child: element.isRevealed
-          ? element.value == 0
-              ? Image.asset('assets/images/check.png')
-              : Image.asset('assets/images/boom.png')
-          : GestureDetector(
-              onTap: () {
-                element.reveal();
-                onReveal();
-              },
-              child: Image.asset('assets/images/question.png'),
-            ),
     );
+  }
+
+  Widget _content() {
+    return Image.asset(
+      element.isRevealed ? revealedAsset() : 'assets/images/question.png',
+      height: 48.0,
+      width: 48.0,
+    );
+  }
+
+  String revealedAsset() {
+    switch (element.value) {
+      case 0:
+        return 'assets/images/check.png';
+
+      case 1:
+        return 'assets/images/mine.png';
+
+      case 2:
+        return 'assets/images/boom.png';
+
+      default:
+        return '';
+    }
   }
 }

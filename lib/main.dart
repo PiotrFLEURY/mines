@@ -1,3 +1,5 @@
+// ignore_for_file: require_trailing_commas
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mines/widgets/party.dart';
@@ -20,16 +22,18 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: Builder(builder: (context) {
-        return SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) => Party(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
+      home: Builder(
+        builder: (context) {
+          return SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) => Party(
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }
