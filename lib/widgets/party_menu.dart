@@ -34,51 +34,58 @@ class _PartyMenuState extends State<PartyMenu> {
             child: Center(
               child: Material(
                 elevation: 8.0,
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius: BorderRadius.circular(8.0),
                 child: Padding(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () =>
-                              context.read<PartyProvider>().resume(),
-                        ),
-                      ),
-                      Text(
-                        AppLocalizations.of(context)!.menu,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2!
-                            .copyWith(color: Colors.green),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.menu,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(color: Colors.green),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () =>
+                                context.read<PartyProvider>().resume(),
+                          ),
+                        ],
                       ),
                       if ([PartyStatus.loose, PartyStatus.cheat]
                           .contains(widget.status))
                         Image.asset(
                           'assets/images/explosion.png',
-                          height: 256.0,
+                          height: MediaQuery.of(context).size.height * .3,
                         ),
                       Text(
                         widget.status.asText(context),
                         style: Theme.of(context).textTheme.headline3,
                       ),
-                      ElevatedButton(
-                        onPressed: widget.onRestart,
-                        child: Text(
-                          AppLocalizations.of(context)!.restart,
-                        ),
-                      ),
-                      if (widget.status != PartyStatus.cheat)
-                        ElevatedButton(
-                          onPressed: widget.onTryAgain,
-                          child: Text(
-                            AppLocalizations.of(context)!.try_again,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: widget.onRestart,
+                            child: Text(
+                              AppLocalizations.of(context)!.restart,
+                            ),
                           ),
-                        ),
+                          if (widget.status != PartyStatus.cheat)
+                            ElevatedButton(
+                              onPressed: widget.onTryAgain,
+                              child: Text(
+                                AppLocalizations.of(context)!.try_again,
+                              ),
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

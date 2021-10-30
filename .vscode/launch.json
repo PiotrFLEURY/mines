@@ -10,6 +10,15 @@
             "type": "dart"
         },
         {
+            "name": "mines web",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "-d",
+                "chrome"
+            ]
+        },
+        {
             "name": "mines (profile mode)",
             "request": "launch",
             "type": "dart",
